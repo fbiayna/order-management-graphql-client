@@ -8,6 +8,9 @@
 # Ignore environment files
 .env
 
+# Ignore build
+/dist
+
 # testing
 /coverage
 
