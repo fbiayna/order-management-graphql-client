@@ -1,37 +1,10 @@
 import React, { useState } from 'react'
-import { useLazyQuery, gql } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import ReactJson from 'react-json-view'
+import fetchOrder from '../data/graphql/fetchOrder'
+import copies from '../application/assets/copies'
 
-// Schema
-
-const fetchOrder = gql`
-  query FetchOrder($fetchOrderId: ID!) {
-    fetchOrder(id: $fetchOrderId) {
-      id
-      state
-      updatedAt
-      createdAt
-      assignedTo
-      customer {
-        address
-        email
-        id
-        name
-      }
-      lineItems {
-        id
-        product {
-          id
-          name
-          price
-        }
-        quantity
-      }
-    }
-  }
-`
-
-const App = () => {
+const OrderSearchScreen = () => {
   // State
 
   const [orderIdInput, setOrderIdInput] = useState<string>('')
@@ -53,23 +26,30 @@ const App = () => {
 
   // Render
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error : {error.message}</p>
+  if (loading) return <p>{copies.app.results.loading}</p>
+  if (error)
+    return (
+      <p>
+        {copies.app.results.error} {error.message}
+      </p>
+    )
 
   return (
     <div>
-      <h1>Fetch Order</h1>
+      <h1>{copies.app.title}</h1>
       <input
         type='text'
         value={orderIdInput}
         onChange={onOrderIdInputChanged}
-        placeholder='Enter an orderId'
+        placeholder={copies.app.input.placeholder}
       />
-      <button onClick={onFetchOrderSubmitTapped}>Search</button>
-      {!loading && queryCompleted && (!data || !data.fetchOrder) && <p>No data found</p>}
+      <button onClick={onFetchOrderSubmitTapped}>{copies.app.input.searchInput}</button>
+      {!loading && queryCompleted && (!data || !data.fetchOrder) && (
+        <p>{copies.app.results.noData}</p>
+      )}
       {data && data.fetchOrder && <ReactJson src={data.fetchOrder} />}
     </div>
   )
 }
 
-export default App
+export default OrderSearchScreen

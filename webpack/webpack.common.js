@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: {
-    app: './src/index.tsx',
+    app: './src/application/index.tsx',
   },
   module: {
     rules: [
@@ -32,5 +32,5 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     clean: true,
   },
-  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' }), new Dotenv()],
+  plugins: [new HtmlWebpackPlugin({ template: './src/application/index.html' }), new Dotenv()],
 }
