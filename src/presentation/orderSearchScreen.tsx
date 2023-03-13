@@ -24,15 +24,26 @@ const OrderSearchScreen = () => {
     setOrderIdInput('')
   }
 
-  // Render
+  // Helper methods
 
-  if (loading) return <p>{copies.app.results.loading}</p>
-  if (error)
-    return (
-      <p>
-        {copies.app.results.error} {error.message}
-      </p>
-    )
+  const getAnswer = () => {
+    if (!queryCompleted) return
+
+    if (loading) return <p>{copies.app.results.loading}</p>
+
+    if (error)
+      return (
+        <p>
+          {copies.app.results.error} {error.message}
+        </p>
+      )
+
+    if (!data || !data.fetchOrder) return <p>{copies.app.results.noData}</p>
+
+    return <ReactJson src={data.fetchOrder} />
+  }
+
+  // Render
 
   return (
     <div>
@@ -44,10 +55,7 @@ const OrderSearchScreen = () => {
         placeholder={copies.app.input.placeholder}
       />
       <button onClick={onFetchOrderSubmitTapped}>{copies.app.input.searchInput}</button>
-      {!loading && queryCompleted && (!data || !data.fetchOrder) && (
-        <p>{copies.app.results.noData}</p>
-      )}
-      {data && data.fetchOrder && <ReactJson src={data.fetchOrder} />}
+      {getAnswer()}
     </div>
   )
 }
