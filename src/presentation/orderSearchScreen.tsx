@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import ReactJson from 'react-json-view'
-import fetchOrder from '../data/graphql/fetchOrder'
+import fetchOrder from '../domain/schemas/fetchOrder'
 import copies from '../application/assets/copies'
 
 const OrderSearchScreen = () => {

@@ -3,25 +3,25 @@ import { gql } from '@apollo/client'
 const fetchOrder = gql`
   query FetchOrder($fetchOrderId: ID!) {
     fetchOrder(id: $fetchOrderId) {
-      id
+      _id
       state
       updatedAt
       createdAt
       assignedTo
       customer {
+        _id
         address
         email
-        id
         name
       }
       lineItems {
-        id
+        _id
+        quantity
         product {
-          id
+          _id
           name
           price
         }
-        quantity
       }
     }
   }
