@@ -1,4 +1,4 @@
-# MediamarktSaturn Challenge - Client
+# Order management graphql client
 
 ## Installation
 
